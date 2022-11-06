@@ -1,7 +1,7 @@
 export default function Header() {
     return (
-        <div className="bg-red-300 flex justify-between p-3">
-            Joboden
+        <div className="text-3xl text-center font-semibold py-6 bg-white">
+            Workout Tracker
         </div>
     )
 }
