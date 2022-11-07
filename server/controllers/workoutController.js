@@ -8,10 +8,11 @@ const getWorkouts = async (req, res) => {
 }
 
 const getWorkout = async (req, res) => {
-    if(!isValid(req.params.id)){
+    const id = req.params.id
+    if(!isValid(id)){
         return res.status(404).json({message: "No such Workout"})
     }
-    const workout = await Workout.findOne({_id: req.params.id})
+    const workout = await Workout.findOne({_id: id})
     if (!workout) {
         return res.status(404).json({message: "No such Workout"})
     }
@@ -28,20 +29,22 @@ const createWorkout = async (req, res) => {
     }
 }
 const deleteWorkout = async (req, res) => {
-    if(!isValid(req.params.id)){
+    const id = req.params.id
+    if(!isValid(id)){
         return res.status(404).json({message: "No such Workout"})
     }
-    const workout = await Workout.findOneAndDelete({_id: req.params.id})
+    const workout = await Workout.findOneAndDelete({_id: id})
     if (!workout) {
         return res.status(404).json({message: "No such Workout"})
     }
     res.status(200).json(workout)
 }
 const updateWorkout = async (req, res) => {
-    if(!isValid(req.params.id)){
+    const id = req.params.id
+    if(!isValid(id)){
         return res.status(404).json({message: "No such Workout"})
     }
-    const workout = await Workout.findOneAndUpdate({_id: req.params.id}, {...req.body})
+    const workout = await Workout.findOneAndUpdate({_id: id}, {...req.body})
     if (!workout) {
         return res.status(404).json({message: "No such Workout"})
     }

@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react"
 import { Card } from "./Card"
 
-export const Main = () => {
+export const Body = () => {
     const [workout, setWorkout] = useState({
         title: "",
         reps: "",
         weight: ""
     })
 
-    const [deleted, setDeleted] = useState({})
     const handleDelete = async (id) => {
         const res = await fetch(`http://localhost:8081/api/workouts/${id}`, {
             method: "DELETE"
         })
-        const data = await res.json()
-        console.log(data)
         if (res.ok) {
-            setDeleted(data)
+            setWorkout({title: "", reps: "", weight: ""})
         }
     }
 
@@ -28,7 +25,7 @@ export const Main = () => {
             setWorkouts(data)
         }
         fetchData()
-    }, [workout, deleted])
+    }, [workout])
     
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -46,32 +43,33 @@ export const Main = () => {
             setWorkout({title: "", reps: "", weight: ""})
         } 
     }
-
-    const info = Object.keys(workout).map(key => {
-        return (
-            <div key={key}>
-                <label htmlFor={key} className="block">{key.charAt(0).toUpperCase() + key.slice(1)}</label>
-                <input 
-                    className="border rounded-md w-full indent-2" 
-                    type="text" 
-                    id={key} 
-                    name={key} 
-                    value={workout[key]} 
-                    onChange={handleChange}
-                />
-            </div> 
-        )
-    })
-    
+    const capitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+    }
 
     return (
-        <div className="flex space-x-4 p-12 justify-between items-start">
-            <div className="grow space-y-4">
-                {workouts && workouts.map(workout => <Card workout={workout} key={workout._id} handleClick={handleDelete} />)}
-            </div>
-            <form className="space-y-4 px-6 py-4 bg-white rounded-md shadow-lg" onSubmit={handleSubmit}>
+        <div className="p-8 flex flex-col space-y-4 md:space-x-4 md:space-y-0 md:items-start md:flex-row">
+            {workouts ? 
+                <div className="flex-1 space-y-4">
+                    {workouts.map(item => <Card workout={item} key={item._id} handleDelete={handleDelete} />)}
+                </div> :
+                <div>No Activity</div>
+            }
+            <form className="space-y-4 p-4 bg-white shadow-lg" onSubmit={handleSubmit}>
                 <h3 className="text-2xl text-cyan-400 font-medium">Add new workout activity</h3>
-                {info}
+                {["title", "reps", "weight"].map(item => 
+                    <div key={item}>
+                        <label htmlFor={item}>{capitalize(item)}</label>
+                        <input
+                            className="border mx-2 indent-2" 
+                            type="text" 
+                            id={item} 
+                            name={item}
+                            value={workout[item]} 
+                            onChange={handleChange}
+                        />
+                    </div>)
+                }
                 <button className='p-2 bg-cyan-400 text-white rounded-md hover:bg-cyan-300'>Add workout</button>
             </form>
         </div>
