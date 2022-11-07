@@ -3,7 +3,7 @@ import { Body } from './components/Body'
 function App() {
 
   return (
-    <div className="bg-slate-100 h-screen">
+    <div className="bg-slate-100 h-screen font-poppins">
       <Header />
       <Body />
     </div>
