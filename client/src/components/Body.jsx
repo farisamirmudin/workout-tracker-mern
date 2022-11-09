@@ -1,31 +1,23 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { Card } from "./Card"
+import { WorkoutContext } from "../context/workoutContext"
 
 export const Body = () => {
+    const {workouts, dispatch} = useContext(WorkoutContext)
     const [workout, setWorkout] = useState({
         title: "",
         reps: "",
         weight: ""
     })
 
-    const handleDelete = async (id) => {
-        const res = await fetch(`http://localhost:8081/api/workouts/${id}`, {
-            method: "DELETE"
-        })
-        if (res.ok) {
-            setWorkout({title: "", reps: "", weight: ""})
-        }
-    }
-
-    const [workouts, setWorkouts] = useState([])
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch('http://localhost:8081/api/workouts')
             const data = await res.json()
-            setWorkouts(data)
+            dispatch({type: "SET_WORKOUTS", payload: data})
         }
         fetchData()
-    }, [workout])
+    }, [])
     
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -39,37 +31,53 @@ export const Body = () => {
             body: JSON.stringify(workout),
             headers: {'Content-Type': 'application/json'}
         })
+        const data = await res.json()
         if (res.ok) {
             setWorkout({title: "", reps: "", weight: ""})
+            dispatch({type: "CREATE_WORKOUT", payload: data})
         } 
-    }
-    const capitalize = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1)
     }
 
     return (
         <div className="p-8 flex flex-col space-y-4 md:space-x-4 md:space-y-0 md:items-start md:flex-row">
             {workouts ? 
                 <div className="flex-1 space-y-4">
-                    {workouts.map(item => <Card workout={item} key={item._id} handleDelete={handleDelete} />)}
+                    {workouts.map(workout => <Card workout={workout} key={workout._id}/>)}
                 </div> :
-                <div>No Activity</div>
+                <div>No workout</div>
             }
-            <form className="space-y-4 p-4 bg-white shadow-lg" onSubmit={handleSubmit}>
+            <form className="flex flex-col space-y-2 p-4 bg-white shadow-lg" onSubmit={handleSubmit}>
                 <h3 className="text-2xl text-cyan-400 font-medium">Add new workout activity</h3>
-                {["title", "reps", "weight"].map(item => 
-                    <div key={item}>
-                        <label htmlFor={item}>{capitalize(item)}</label>
-                        <input
-                            className="border mx-2 indent-2" 
-                            type="text" 
-                            id={item} 
-                            name={item}
-                            value={workout[item]} 
-                            onChange={handleChange}
-                        />
-                    </div>)
-                }
+
+                <label htmlFor="title">Title</label>
+                <input
+                    className="border indent-2" 
+                    type="text" 
+                    id="title"
+                    name="title"
+                    value={workout.title} 
+                    onChange={handleChange}
+                />
+                <label htmlFor="reps">Reps</label>
+                <input
+                    className="border indent-2" 
+                    type="text" 
+                    id="reps"
+                    name="reps"
+                    value={workout.reps} 
+                    onChange={handleChange}
+                />
+                <label htmlFor="weight">Weight</label>
+                <input
+                    className="border indent-2" 
+                    type="text" 
+                    id="weight"
+                    name="weight"
+                    value={workout.weight} 
+                    onChange={handleChange}
+                />
+
+                
                 <button className='p-2 bg-cyan-400 text-white rounded-md hover:bg-cyan-300'>Add workout</button>
             </form>
         </div>

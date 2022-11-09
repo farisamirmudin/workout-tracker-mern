@@ -17,4 +17,4 @@ router.delete('/:id', deleteWorkout)
 // PATCH a new workout
 router.patch('/:id', updateWorkout)
 
-export { router as workoutRoutes }
+export default router 

@@ -1,4 +1,4 @@
-import { Workout } from '../models/workoutModel.js'
+import Workout from '../models/workoutModel.js'
 import mongoose from 'mongoose'
 const isValid = mongoose.Types.ObjectId.isValid
 
