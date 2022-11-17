@@ -23,7 +23,7 @@ const workoutReducer = (state, action) => {
 
 export const WorkoutProvider = ({children}) => {
     const [state, dispatch] = useReducer(workoutReducer, {
-        workouts: null
+        workouts: []
     })
 
     return (

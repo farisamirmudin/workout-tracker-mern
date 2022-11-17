@@ -3,7 +3,8 @@ import mongoose from 'mongoose'
 const isValid = mongoose.Types.ObjectId.isValid
 
 const getWorkouts = async (req, res) => {
-    const workouts = await Workout.find({}).sort({ createdAt: -1 })
+    const user_id = req.user._id
+    const workouts = await Workout.find({ user_id }).sort({ createdAt: -1 })
     res.status(200).json(workouts)
 }
 
@@ -20,9 +21,10 @@ const getWorkout = async (req, res) => {
 }
 
 const createWorkout = async (req, res) => {
+    const user_id = req.user._id
     const { title, reps, weight } = req.body
     try {
-        const workout = await Workout.create({title, reps, weight})
+        const workout = await Workout.create({title, reps, weight, user_id})
         res.status(200).json(workout)
     } catch (error) {
         res.json({error: error.message})
