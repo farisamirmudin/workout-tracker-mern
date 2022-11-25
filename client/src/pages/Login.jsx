@@ -40,14 +40,14 @@ const Login = () => {
   const style = "border border-[#E4E7EB] px-4 py-2 focus:outline-none rounded-lg bg-transparent"
   return (
     <div className="flex justify-center">
-      <div className='p-8 bg-[#3e4c59] rounded-lg'>
+      <div className='p-8 rounded-lg'>
         <p className='font-semibold text-xl'>Login</p>
         <form onSubmit={handleSubmit} className="flex flex-col my-4 gap-4">
           <input className={style} type="text" name="username" value={credential.username} placeholder="Username" onChange={handleChange} />
           <input className={style} type="password" name="password" value={credential.password} placeholder="Password" onChange={handleChange} />
           {error && <p className='text-sm text-red-700 italic'>* {error}</p>}
-          <button className='px-4 py-2 rounded-lg bg-[#50A7D9]'>Login</button>
-          <p className='text-center'>No Account? <Link to="/signup" className='text-[#50A7D9]'>Sign Up</Link></p>
+          <button className='px-4 py-2 rounded-lg bg-[#3e4c59]'>Login</button>
+          <p className='text-center'>No Account? <Link to="/signup" className='text-gray-400'>Sign Up</Link></p>
         </form>
       </div>
     </div>

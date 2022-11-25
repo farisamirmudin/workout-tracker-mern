@@ -7,15 +7,15 @@ const Main = () => {
   const { user } = useContext(AuthContext)
   if (user) {
     return (
-      <main className='flex flex-col lg:flex-row justify-between lg:items-start items-center gap-y-8'>
+      <main className='flex flex-col items-center lg:flex-row gap-4 lg:items-start'>
         <WorkoutField />
         <WorkoutForm />
       </main>
     )
   }
   return (
-    <main className='flex flex-col items-center'>
-      <p className='text-4xl mt-10 mb-4 md:w-3/4'>You love working out? Keep track of your workouts here</p>
+    <main className=''>
+      <p className='my-6 text-2xl md:text-3xl lg:text-4xl'>You love working out? Keep track of your workouts here</p>
       <p className='italic'>Sign up or log in to get started</p>
     </main>
   )

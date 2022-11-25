@@ -19,14 +19,14 @@ const WorkoutField = () => {
     }
     fetchWorkout()
   }, [user])
-  console.log(workouts)
+  
   if (!workouts.length) {
     return (
       <div className="px-4 py-2 rounded-lg bg-[#3e4c59]">No workout</div>
     )
   }
   return (
-    <div className="flex flex-wrap gap-4 items-center md:flex-row flex-col md:items-start">
+    <div className="flex-1">
       {workouts && workouts.map(workout => <Workout workout={workout} key={workout._id} />)}
     </div>
   )

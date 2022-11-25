@@ -34,7 +34,7 @@ const WorkoutForm = () => {
   const style = "border border-[#E4E7EB] px-4 py-2 focus:outline-none rounded-lg bg-transparent"
 
   return (
-    <div className="bg-[#3e4c59] px-8 py-4 flex-none rounded-lg">
+    <div className="px-8 py-4 flex-none rounded-lg">
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <h3 className="text-2xl font-medium">Add new workout</h3>
         <label htmlFor="title">Title</label>
@@ -64,7 +64,7 @@ const WorkoutForm = () => {
           value={workout.weight}
           onChange={handleChange}
         />
-        <button className='my-4 p-2 bg-[#50A7D9] rounded-lg'>Add workout</button>
+        <button className='my-4 p-2 bg-[#3e4c59] rounded-lg'>Add workout</button>
       </form>
     </div>
   )
