@@ -20,7 +20,7 @@ export const Workout = ({ workout }) => {
         }
     }
     return (
-        <div className="px-4 py-2 rounded-lg bg-[#3e4c59] flex justify-between items-center gap-4">
+        <div className="px-4 py-2 rounded-lg mb-4 bg-[#3e4c59] flex justify-between items-center gap-4">
             {/* left section */}
             <div className="flex-1">
                 <p className="text-2xl">{workout.title}</p>
